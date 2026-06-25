@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 30% 4%;
+    --foreground: 240 10% 96%;
+    --card: 240 25% 7%;
+    --card-foreground: 240 10% 96%;
+    --popover: 240 25% 7%;
+    --popover-foreground: 240 10% 96%;
+    --primary: 243 75% 59%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 250 90% 70%;
+    --secondary: 240 20% 12%;
+    --secondary-foreground: 240 10% 96%;
+    --muted: 240 20% 14%;
+    --muted-foreground: 240 8% 65%;
+    --accent: 250 90% 70%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 20% 16%;
+    --input: 240 20% 14%;
+    --ring: 243 75% 59%;
+    --radius: 1rem;
+
+    --gradient-primary: linear-gradient(135deg, hsl(243 75% 59%), hsl(270 80% 65%));
+    --gradient-mesh: radial-gradient(at 20% 20%, hsl(243 75% 59% / 0.25) 0, transparent 50%),
+                     radial-gradient(at 80% 0%, hsl(270 80% 65% / 0.2) 0, transparent 50%),
+                     radial-gradient(at 80% 80%, hsl(200 90% 60% / 0.15) 0, transparent 50%);
+    --gradient-text: linear-gradient(135deg, hsl(240 10% 96%), hsl(243 75% 75%) 50%, hsl(270 80% 75%));
+    --glow-primary: 0 0 60px hsl(243 75% 59% / 0.45);
+    --glass-bg: hsl(240 25% 9% / 0.6);
+    --glass-border: hsl(243 75% 59% / 0.15);
+  }
+
+  .light {
+    --background: 0 0% 99%;
+    --foreground: 240 30% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 30% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 30% 8%;
+    --primary: 243 75% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 250 85% 65%;
+    --secondary: 240 20% 96%;
+    --secondary-foreground: 240 30% 8%;
+    --muted: 240 14% 94%;
+    --muted-foreground: 240 8% 40%;
+    --accent: 250 80% 60%;
+    --accent-foreground: 0 0% 100%;
+    --border: 240 14% 88%;
+    --input: 240 14% 92%;
+    --ring: 243 75% 55%;
+    --glass-bg: hsl(0 0% 100% / 0.7);
+    --glass-border: hsl(243 75% 55% / 0.18);
+    --gradient-mesh: radial-gradient(at 20% 20%, hsl(243 75% 55% / 0.15) 0, transparent 50%),
+                     radial-gradient(at 80% 0%, hsl(270 80% 65% / 0.12) 0, transparent 50%),
+                     radial-gradient(at 80% 80%, hsl(200 90% 60% / 0.10) 0, transparent 50%);
+    --gradient-text: linear-gradient(135deg, hsl(240 30% 8%), hsl(243 75% 50%) 50%, hsl(270 80% 55%));
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+  ::selection { background: hsl(var(--primary) / 0.3); color: hsl(var(--foreground)); }
+}
+
+@layer components {
+  .font-display { font-family: 'Space Grotesk', sans-serif; }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+  }
+
+  .gradient-mesh { background: var(--gradient-mesh); }
+  .gradient-primary { background: var(--gradient-primary); }
+
+  .text-gradient {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow { box-shadow: var(--glow-primary); }
+
+  .noise::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.04; pointer-events: none; mix-blend-mode: overlay;
+  }
+
+  .card-hover {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s;
+  }
+  .card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 60px -20px hsl(243 75% 30% / 0.4);
+  }
+
+  .marquee {
+    animation: marquee 30s linear infinite;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .grid-pattern {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.4) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.4) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: hsl(var(--background)); }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, hsl(var(--primary)), hsl(var(--accent)));
+    border-radius: 10px;
+    border: 2px solid hsl(var(--background));
+  }
+}
